@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class OnHasTarget : UnityEvent<string>
 {
@@ -11,7 +12,8 @@ public class OnHasTarget : UnityEvent<string>
 
 public abstract class TurretSpt : MonoBehaviour
 {
-    
+    public static Image Icon;
+
     public OnHasTarget OnHasTarget;
     public float TimeBetweenShots { get { return _timeBetweenShots; }
         set { _currentTurretMappping.TimeBetweenShots = value; _timeBetweenShots = value;  } }
@@ -20,7 +22,7 @@ public abstract class TurretSpt : MonoBehaviour
     [SerializeField] protected TargetOrder targetorder = TargetOrder.First;
     [SerializeField] protected List<TurretMapping> _forms;
     [SerializeField] protected int _damage;
-
+    [SerializeField] protected Image icon;
 
     protected Enemy target;
     protected TriggerSpt triggerSpt;
@@ -40,17 +42,7 @@ public abstract class TurretSpt : MonoBehaviour
 
     
     public int Damage { get; set; }
-        
 
-
-    private void Start()
-    {
-        if (OnHasTarget != null)
-        {
-            OnHasTarget = new OnHasTarget();
-
-        }
-    }
 
     public enum TargetOrder
     {
@@ -73,7 +65,11 @@ public abstract class TurretSpt : MonoBehaviour
     }
 
     protected virtual void Init()
-    {       
+    {
+        if (Icon == null)
+        {
+            Icon = icon;
+        }        
         EnemyModelSpt.ListChanged += RemoveEnemyFromTrigger;        
         _currentForm = _forms[0].gameObject;
 
@@ -103,10 +99,12 @@ public abstract class TurretSpt : MonoBehaviour
     }
     protected virtual void SetupTurretMappings()
     {
+        Debug.Log("error");
         SetCurrentForm(_forms[UpgradePointer].gameObject);
         
         _currentTurretMappping = _currentForm.GetComponent<TurretMapping>();
         triggerSpt = _currentTurretMappping.GetComponentInChildren<TriggerSpt>();
+
 
         turretHeadX = _currentTurretMappping.HeadX;
         turretHeadY = _currentTurretMappping.HeadY;
@@ -232,4 +230,5 @@ public abstract class TurretSpt : MonoBehaviour
 
         TurretModel.Projectiles.RemoveAll(proj => proj == null);
     }
+
 }

@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TurretMapping : MonoBehaviour
 {
+    public static Image Icon;
     public List<GameObject> Bloom;
     public Transform HeadX;
     public Transform HeadY;
     public ShootBehaviour shootBehavior;
+
+    [SerializeField] private Image icon;
     public float TimeBetweenShots { get { return _timeBetweenShots; }
         set
         {
@@ -20,13 +24,17 @@ public class TurretMapping : MonoBehaviour
         }
     }
 
-    
+
+
     [SerializeField] private float _timeBetweenShots;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (Icon == null)
+        {
+            Icon = icon;
+        }
 
         if (Bloom.Count == 0)
         {
@@ -38,5 +46,5 @@ public class TurretMapping : MonoBehaviour
         }
     }
 
-    
+
 }

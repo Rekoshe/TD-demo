@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class SceneController : MonoBehaviour
     [SerializeField] GameObject EnemyController;
     [SerializeField] GameObject TurretController;
     [SerializeField] GameObject UIController;
+
 
     MapController MapControllerSpt;
     EnemySpawnerSpt enemySpawnerSpt;
@@ -46,6 +48,9 @@ public class SceneController : MonoBehaviour
         StartCoroutine(enemySpawnerSpt.SpawnWave(enemies, 1));
 
         Time.timeScale = timeScale;
+
+
+        
     }
      
     // Update is called once per frame

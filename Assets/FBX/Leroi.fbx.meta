@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Atlas NEW
-    second: {fileID: 2100000, guid: 303a17d72ed015247a62c8f9d8f54989, type: 2}
+    second: {fileID: 2100000, guid: d3f18dd9ca0ab2b4dbecea4099c469a6, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

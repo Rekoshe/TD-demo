@@ -13,6 +13,7 @@ public class OnHasTarget : UnityEvent<string>
 public abstract class TurretSpt : MonoBehaviour
 {
     public static Image Icon;
+    public bool Activated { get; set; }
 
     public OnHasTarget OnHasTarget;
     public float TimeBetweenShots { get { return _timeBetweenShots; }
@@ -99,7 +100,6 @@ public abstract class TurretSpt : MonoBehaviour
     }
     protected virtual void SetupTurretMappings()
     {
-        Debug.Log("error");
         SetCurrentForm(_forms[UpgradePointer].gameObject);
         
         _currentTurretMappping = _currentForm.GetComponent<TurretMapping>();
@@ -211,24 +211,29 @@ public abstract class TurretSpt : MonoBehaviour
 
     private void Update()
     {
-        AddToTimer();
+        if (Activated)
+        {
+            AddToTimer();
 
-        //experimental Ai
-        if (EnemyEntered())
-        {
-            PickTarget();
-        }
-        if (TargetInRangeAndAlive())
-        {
-            //turret.Aim();
-            Shoot();
-        }
-        else
-        {
-            PickTarget();
+            //experimental Ai
+            if (EnemyEntered())
+            {
+                PickTarget();
+            }
+            if (TargetInRangeAndAlive())
+            {
+                //turret.Aim();
+                Shoot();
+            }
+            else
+            {
+                PickTarget();
+            }
+
+            TurretModel.Projectiles.RemoveAll(proj => proj == null);
         }
 
-        TurretModel.Projectiles.RemoveAll(proj => proj == null);
+        
     }
 
 }

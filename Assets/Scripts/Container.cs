@@ -8,28 +8,33 @@ public class Container : MonoBehaviour
     [SerializeField] Button TurretButtonPrefab;
     [SerializeField] List<TurretSpt> Prefabs;
 
-    [SerializeField] int screenwidth = 30;
+    [SerializeField] int SpaceBetweenTurrets = 100;
+    [SerializeField] TurretPlacement placementSpt;
     // Start is called before the first frame update
     void Start()
     {
         CreateContainer(Prefabs);
+        
     }
     
     public void CreateContainer(List<TurretSpt> turrets) 
     {
-        float margin = screenwidth/turrets.Count;
+        
         int counter = 0;
-
+        
         foreach(TurretSpt turret in turrets )
         {
             
             Button thisButton =
-                Instantiate(TurretButtonPrefab, new Vector3(margin * counter + 100, 100), Quaternion.identity, gameObject.transform);
-            
+                Instantiate(TurretButtonPrefab,
+                 gameObject.transform);
+
+            thisButton.transform.position = new Vector3(100 + SpaceBetweenTurrets * counter, gameObject.transform.position.y);
             thisButton.image = TurretSpt.Icon;
             thisButton.onClick.AddListener(() =>
             {
-                Instantiate( turret, new Vector3(0, 0, 0), Quaternion.identity);
+                placementSpt.SpwanTurret(turret);
+
             });
             counter++;
         }

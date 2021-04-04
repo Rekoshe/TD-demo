@@ -13,6 +13,7 @@ public class PlanningViewCameraCtrl : MonoBehaviour
     [SerializeField] private float ZoomMax;
     [SerializeField] private float ZoomMin;
     [SerializeField] private Camera _planningViewCamera;
+    [SerializeField] private GameObject TurretSelectionMenu;
 
     private TurretSpt selectedTurret;
     private TurretMenuController turretMenu;
@@ -128,6 +129,16 @@ public class PlanningViewCameraCtrl : MonoBehaviour
     public void CloseMenus()
     {
         turretMenu.OpenMenu(false);
+    }
+
+    public void OpenTurretSelectionMenu()
+    {
+        if (TurretSelectionMenu.activeSelf)
+        {
+            TurretSelectionMenu.SetActive(false);
+            return;
+        }
+        TurretSelectionMenu.SetActive(true);
     }
     
 }
